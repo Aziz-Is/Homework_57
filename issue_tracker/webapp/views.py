@@ -1,9 +1,48 @@
 from django.shortcuts import render, redirect
 from django.views.generic.base import TemplateView
+from django.views.generic.list import ListView
 from .models import Tracker
 from .forms import MyForm
-
+from .forms import Search
 # Create your views here.
+
+class IndexView(ListView)
+    model = Tracker
+    template_name = "index.html"
+    context_object_name = "trackers"
+    paginated_by = 10
+
+    def get(self,request, *args, **kwargs):
+        self.form = SearchForm(request.GET)
+        if self.form.is_valid():
+            self.seacrh_value = self.form.cleaned_data.get("search")
+        return super().get(request,*args, **kwargs)
+
+    def get_queryset(self):
+        return Tracker.objects.all().order_by("-updated_at")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] =self.form
+        if seacrh_value:
+            query = urlencode({'search': self.search_value})
+            print(query)
+            context['query'] = query
+        return  context
+
+    def get_search_form(self):
+        return SearchForm(request.GET)
+
+    def get_search_value(self):
+        if self.form.is_valid():
+            return self.form.cleaned_data("seacrh")
+
+
+
+
+
+
+
 
 
 class MainpageView(TemplateView):

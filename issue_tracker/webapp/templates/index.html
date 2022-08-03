@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+{% include 'partial/search.html' %}
+<body>
+
+
+
+{% if is_paginated %}
+   {% include 'partial/pagination.html' %}
+{% endif %}
+
+</body>
+</html>

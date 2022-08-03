@@ -15,3 +15,6 @@ class MyForm(ModelForm):
     class Meta:
         model = Tracker
         exclude = []
+
+class Search(forms.Form):
+    seacrh = forms.CharField(max_length=50, required=False, label = 'Искать')
