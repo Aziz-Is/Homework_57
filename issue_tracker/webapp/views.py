@@ -8,7 +8,7 @@ from django.utils.http import urlencode
 from .forms import Search
 # Create your views here.
 
-class IndexView(ListView)
+class IndexView(ListView):
     model = Tracker
     template_name = "index.html"
     context_object_name = "trackers"

@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from webapp.views import MainpageView, DetailView, AddView, UpdateView, DeleteView
 
+# app_name = "webapp"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
