@@ -17,4 +17,4 @@ class MyForm(ModelForm):
         exclude = []
 
 class Search(forms.Form):
-    seacrh = forms.CharField(max_length=50, required=False, label = 'Искать')
+    search = forms.CharField(max_length=50, required=False, label='Искать')

@@ -3,6 +3,8 @@ from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 from .models import Tracker
 from .forms import MyForm
+from django.db.models import Q
+from django.utils.http import urlencode
 from .forms import Search
 # Create your views here.
 
@@ -13,18 +15,19 @@ class IndexView(ListView)
     paginated_by = 10
 
     def get(self,request, *args, **kwargs):
-        self.form = SearchForm(request.GET)
-        if self.form.is_valid():
-            self.seacrh_value = self.form.cleaned_data.get("search")
+        self.form = self.get_search_form()
+        self.search_value = self.get_search_value()
         return super().get(request,*args, **kwargs)
 
     def get_queryset(self):
+        if self.search_value:
+            return Tracker.objects.filter()
         return Tracker.objects.all().order_by("-updated_at")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["form"] =self.form
-        if seacrh_value:
+        if search_value:
             query = urlencode({'search': self.search_value})
             print(query)
             context['query'] = query
@@ -35,7 +38,7 @@ class IndexView(ListView)
 
     def get_search_value(self):
         if self.form.is_valid():
-            return self.form.cleaned_data("seacrh")
+            return self.form.cleaned_data("search")
 
 
 
