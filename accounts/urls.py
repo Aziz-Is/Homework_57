@@ -1,7 +1,7 @@
 from django.urls import path
-from webapp.views import  import IndexView
-app_name = "accounts"
+from webapp.views import login_view
+# app_name = "accounts"
 
 urlpatterns = [
-    path('', IndexView.as_view(), name ="index"),
+    path('login/', login_view, name="login"),
 ]
